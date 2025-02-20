@@ -21,9 +21,10 @@ The new CoT feature allows the model to internally generate multiple reasoning p
 
 ### Performance Results
 
-- **Original Approach:** On a randomly sampled GSM8K benchmark, the original decoding approach achieved **83/100** correct answers.
-- **With CoT Decoding:** When CoT decoding is enabled with 10 decoding paths, the model achieves **90/100** correct answers.  
+- **Original Approach:** On a randomly sampled GSM8K benchmark, Llama 3.1 8B model achieves 83.0% accuracy. 
+- **With CoT Decoding:** When CoT decoding is enabled with 10 decoding paths, Llama 3.1 8B model achieves 90.0% accuracy on the same test set.  
   *Note:* This improvement comes with the overhead of decoding multiple paths.
+  Also note that LLama 3.1 8B might have been pre-trained on GSM8K, so the actual improvement may be different on an unseen reasoning dataset. 
 
 ### Example Usage
 

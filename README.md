@@ -8,7 +8,6 @@
 
 ---
 
-
 ## Fork Announcement and Key Enhancements
 
 This repository is a public fork of the official [meta llama-models](https://github.com/meta-llama/llama-models) repository. In this fork, we introduce a novel Chain-of-Thought (CoT) reasoning mechanism inspired by the paper:
@@ -18,24 +17,27 @@ This repository is a public fork of the official [meta llama-models](https://git
 
 ### What It Does
 
-The new CoT feature allows the model to internally generate multiple reasoning paths and pick the one which generates **answer tokens** (not all tokens, only the ones which indicate the answer, example a number or an option for a math problem ) with the highest confidence. The confidence score is defined as the difference in probability between the best, predicted token and the second best at this decoding step (confidence in predicting best 'class' vs second best). If there are multiple answer tokens, the average confidence score is taken. This enhancement is designed to improve multi-step reasoning performance, especially for tasks that require complex, step-by-step answers.
+The new CoT feature allows the model to internally generate multiple reasoning paths and pick the one that produces the **answer tokens** (i.e. only those tokens indicating the answer, such as a number or an option for a math problem) with the highest confidence. The confidence score is defined as the difference in probability between the best predicted token and the second best at each decoding step. When multiple answer tokens are generated, their average confidence score is used. This enhancement is designed to improve multi-step reasoning performance, particularly for tasks that require complex, step-by-step answers.
+
+### Performance Results
+
+- **Original Approach:** On a randomly sampled GSM8K benchmark, the original decoding approach achieved **83/100** correct answers.
+- **With CoT Decoding:** When CoT decoding is enabled with 10 decoding paths, the model achieves **90/100** correct answers.  
+  *Note:* This improvement comes with the overhead of decoding multiple paths.
 
 ### Example Usage
 
-To enable CoT reasoning, simply pass the `--cot_decoding true` flag along with your desired `--cot_top_k` value when running the model. Default setting assumes that answer will be on a new line with answer in between. Example
-````
-Mary worked for 4 hours. She was paid $10 per hour. So the total payment is $40
-<answer>40</answer>
-'''
-But this can be changed using the answer_start_pattern and answer_end_pattern options in generate() function. 
+To enable CoT reasoning, simply pass the `--cot_decoding true` flag along with your desired `--cot_top_k` value when running the model. The default setting assumes that the answer appears on a new line enclosed within answer tags. For example:
 
-A sample run script (test.py) is provided in the repository for obtaining GSM8K results. 
+Mary worked for 4 hours. She was paid $10 per hour. So the total payment is $40 <answer>40</answer>
 
-Note:
-This prototype has only been tested on a single A100 GPU. It has not been optimized for runtime or memory. 
-Multi-GPU parallelism and tensor parallelism have not been tested.
-Users should exercise caution and understand that the current parallelism support is experimental and may contain bugs.
-The run script sets up a single-process distributed environment and demonstrates how to use the model for GSM8K evaluation. It serves solely as a research prototype and is provided for experimentation and benchmarking.
+This behavior can be modified using the `answer_start_pattern` and `answer_end_pattern` options in the `generate()` function.
+
+A sample run script (`test.py`) is provided in the repository for obtaining GSM8K results.
+
+**Note:**  
+This prototype has only been tested on a single A100 GPU and has not been optimized for runtime or memory usage. Multi-GPU parallelism and tensor parallelism have not been validated. Users should exercise caution and understand that the current parallelism support is experimental and may contain bugs. The provided run script sets up a single-process distributed environment and demonstrates how to use the model for GSM8K evaluation. This prototype is intended solely for research purposes and benchmarking.
+
 
 
 # Llama Models

@@ -32,8 +32,8 @@ But this can be changed using the answer_start_pattern and answer_end_pattern op
 A sample run script (test.py) is provided in the repository for obtaining GSM8K results. 
 
 Note:
-This prototype has only been tested on a single A100 GPU.
-Multi-GPU parallelism and tensor parallelism have not been tested. 
+This prototype has only been tested on a single A100 GPU. It has not been optimized for runtime or memory. 
+Multi-GPU parallelism and tensor parallelism have not been tested.
 Users should exercise caution and understand that the current parallelism support is experimental and may contain bugs.
 The run script sets up a single-process distributed environment and demonstrates how to use the model for GSM8K evaluation. It serves solely as a research prototype and is provided for experimentation and benchmarking.
 

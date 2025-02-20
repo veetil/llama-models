@@ -81,7 +81,7 @@ page_examples = get_page(all_examples, default_page, PAGE_SIZE)
 print("Using page number:", default_page, "with", len(page_examples), "problems.")
 
 # Add the model package to the Python path.
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from llama_models.datatypes import RawMessage, StopReason
 from llama_models.llama3.reference_impl.generation import Llama
 
@@ -190,23 +190,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-def sample_top_p(probs, p):
-    """
-    Samples the next token based on top-p (nucleus) sampling.
-
-    Args:
-        probs (torch.Tensor): Probability distribution tensor.
-        p (float): Cumulative probability threshold.
-
-    Returns:
-        torch.Tensor: Sampled token id.
-    """
-    probs_sort, probs_idx = torch.sort(probs, dim=-1, descending=True)
-    probs_sum = torch.cumsum(probs_sort, dim=-1)
-    mask = probs_sum - probs_sort > p
-    probs_sort[mask] = 0.0
-    probs_sort.div_(probs_sort.sum(dim=-1, keepdim=True))
-    next_token = torch.multinomial(probs_sort, num_samples=1)
-    next_token = torch.gather(probs_idx, -1, next_token)
-    return next_token

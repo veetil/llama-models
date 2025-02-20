@@ -30,7 +30,10 @@ The new CoT feature allows the model to internally generate multiple reasoning p
 
 To enable CoT reasoning, simply pass the `--cot_decoding true` flag along with your desired `--cot_top_k` value when running the model. The default setting assumes that the answer appears on a new line enclosed within answer tags. For example:
 
-Mary worked for 4 hours. She was paid $10 per hour. So the total payment is $40 <answer>40</answer>
+```
+Mary worked for 4 hours. She was paid $10 per hour. So the total payment is $40
+<answer>40</answer>
+```
 
 This behavior can be modified using the `answer_start_pattern` and `answer_end_pattern` options in the `generate()` function.
 

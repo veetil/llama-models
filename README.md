@@ -34,10 +34,12 @@ To enable CoT reasoning, simply pass the `--cot_decoding true` flag along with y
 Mary worked for 4 hours. She was paid $10 per hour. So the total payment is $40
 <answer>40</answer>
 ```
-
 The answer tags can be modified using the `answer_start_pattern` and `answer_end_pattern` options in the `generate()` function.
 
-A sample run script (`test.py`) is provided in the repository for obtaining GSM8K results.
+Run script 
+```bash
+python models/scripts/example_cot_decode.py $CHECKPOINT_DIR --cot_decoding true --cot_top_k 10
+
 
 **Note:**  
 This prototype has only been tested on a single A100 GPU and has not been optimized for runtime or memory usage. Multi-GPU parallelism and tensor parallelism have not been validated. Users should exercise caution and understand that the current parallelism support is experimental and may contain bugs. The provided run script runs on a single A100 and demonstrates how to use the model for GSM8K evaluation. This prototype is intended solely for research purposes and benchmarking.

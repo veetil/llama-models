@@ -35,7 +35,7 @@ Mary worked for 4 hours. She was paid $10 per hour. So the total payment is $40
 <answer>40</answer>
 ```
 
-This behavior can be modified using the `answer_start_pattern` and `answer_end_pattern` options in the `generate()` function.
+The answer tags can be modified using the `answer_start_pattern` and `answer_end_pattern` options in the `generate()` function.
 
 A sample run script (`test.py`) is provided in the repository for obtaining GSM8K results.
 

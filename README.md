@@ -17,12 +17,12 @@ This repository is a public fork of the official [meta llama-models](https://git
 
 ### What It Does
 
-The new CoT feature allows the model to internally generate multiple reasoning paths and pick the one that produces the **answer tokens** (i.e. only those tokens indicating the answer, such as a number or an option for a math problem) with the highest confidence. The confidence score is defined as the difference in probability between the best predicted token and the second best at each decoding step. When multiple answer tokens are generated, their average confidence score is used. This enhancement is designed to improve multi-step reasoning performance, particularly for tasks that require complex, step-by-step answers.
+The new CoT decoding feature allows the model to internally generate multiple reasoning paths and pick the one that produces the **answer tokens** (i.e. only those tokens indicating the answer, such as a number or an option for a math problem) with the highest confidence. The confidence score is defined as the difference in probability between the best predicted token and the second best at each decoding step. When multiple answer tokens are generated, their average confidence score is used. This enhancement is designed to improve multi-step reasoning performance, particularly for tasks that require complex, step-by-step answers.
 
 ### Performance Results
 
-- **Original Approach:** On a randomly sampled GSM8K benchmark, Llama 3.1 8B Instruct model achieves 83.0% accuracy. 
-- **With CoT Decoding:** When CoT decoding is enabled with 10 decoding paths, Llama 3.1 8B Instruct model achieves 90.0% accuracy on the same test set.  
+- **Original Approach:** On a randomly sampled GSM8K benchmark, Llama 3.1 8B Instruct achieves 83.0% accuracy. 
+- **With CoT Decoding:** Llama 3.1 8B Instruct + CoT decoding achieves 90.0% accuracy on the same test set.  
   *Note:* This improvement comes with the overhead of decoding multiple paths.
   Also note that Llama 3.1 8B Instruct might have been pre-trained on GSM8K, so the actual improvement may be different on an unseen reasoning dataset. 
 
@@ -46,12 +46,13 @@ The answer tags can be modified using the `answer_start_pattern` and `answer_end
 
 **Note:**  
 To do : The script currently prints <|eot_id|><|finetune_right_pad_id|>.. in the response. Please ignore or filter these out as work around. 
+
 Dependency - datasets module.
 ```
 pip install datasets
 ```
 
-This prototype has only been tested on a single A100 GPU and has not been optimized for runtime or memory usage. Multi-GPU parallelism and tensor parallelism have not been validated. Only tested on Llama 3.1 8b model which does not support vision. The provided script demonstrates how to use the model for GSM8K evaluation. This prototype is intended solely for research purposes and benchmarking. 
+This prototype has only been tested on a single A100 GPU and has not been optimized for runtime or memory usage. Multi-GPU parallelism and tensor parallelism have not been validated. Only tested on Llama 3.1 8B Instruct which does not support vision. The provided script demonstrates how to use the model for GSM8K evaluation. This prototype is intended solely for research purposes and benchmarking. 
 
 
 

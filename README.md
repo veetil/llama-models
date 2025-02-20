@@ -10,7 +10,7 @@
 
 ## Fork Announcement and Key Enhancements
 
-This repository is a public fork of the official [meta llama-models](https://github.com/meta-llama/llama-models) repository. In this fork, we introduce a novel Chain-of-Thought (CoT) reasoning mechanism inspired by the paper:
+This repository is a public fork of the official [meta llama-models](https://github.com/meta-llama/llama-models) repository. In this fork, we implement a Chain-of-Thought (CoT) decoding approach for reasoning tasks as presented in the paper:
 
 **"Chain-of-Thought Reasoning Without Prompting"**  
 *Xuezhi Wang, Denny Zhou – DeepMind (2024)*

@@ -8,6 +8,36 @@
 
 ---
 
+
+## Fork Announcement and Key Enhancements
+
+This repository is a public fork of the official [meta llama-models](https://github.com/meta-llama/llama-models) repository. In this fork, we introduce a novel Chain-of-Thought (CoT) reasoning mechanism inspired by the paper:
+
+**"Chain-of-Thought Reasoning Without Prompting"**  
+*Xuezhi Wang, Denny Zhou – DeepMind (2024)*
+
+### What It Does
+
+The new CoT feature allows the model to internally generate multiple reasoning paths and pick the one which generates **answer tokens** (not all tokens, only the ones which indicate the answer, example a number or an option for a math problem ) with the highest confidence. The confidence score is defined as the difference in probability between the best, predicted token and the second best at this decoding step (confidence in predicting best 'class' vs second best). If there are multiple answer tokens, the average confidence score is taken. This enhancement is designed to improve multi-step reasoning performance, especially for tasks that require complex, step-by-step answers.
+
+### Example Usage
+
+To enable CoT reasoning, simply pass the `--cot_decoding true` flag along with your desired `--cot_top_k` value when running the model. Default setting assumes that answer will be on a new line with answer in between. Example
+````
+Mary worked for 4 hours. She was paid $10 per hour. So the total payment is $40
+<answer>40</answer>
+'''
+But this can be changed using the answer_start_pattern and answer_end_pattern options in generate() function. 
+
+A sample run script (test.py) is provided in the repository for obtaining GSM8K results. 
+
+Note:
+This prototype has only been tested on a single A100 GPU.
+Multi-GPU parallelism and tensor parallelism have not been tested. 
+Users should exercise caution and understand that the current parallelism support is experimental and may contain bugs.
+The run script sets up a single-process distributed environment and demonstrates how to use the model for GSM8K evaluation. It serves solely as a research prototype and is provided for experimentation and benchmarking.
+
+
 # Llama Models
 
 Llama is an accessible, open large language model (LLM) designed for developers, researchers, and businesses to build, experiment, and responsibly scale their generative AI ideas. Part of a foundational system, it serves as a bedrock for innovation in the global community. A few key aspects:

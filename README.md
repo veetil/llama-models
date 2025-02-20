@@ -21,10 +21,10 @@ The new CoT feature allows the model to internally generate multiple reasoning p
 
 ### Performance Results
 
-- **Original Approach:** On a randomly sampled GSM8K benchmark, Llama 3.1 8B model achieves 83.0% accuracy. 
-- **With CoT Decoding:** When CoT decoding is enabled with 10 decoding paths, Llama 3.1 8B model achieves 90.0% accuracy on the same test set.  
+- **Original Approach:** On a randomly sampled GSM8K benchmark, Llama 3.1 8B Instruct model achieves 83.0% accuracy. 
+- **With CoT Decoding:** When CoT decoding is enabled with 10 decoding paths, Llama 3.1 8B Instruct model achieves 90.0% accuracy on the same test set.  
   *Note:* This improvement comes with the overhead of decoding multiple paths.
-  Also note that LLama 3.1 8B might have been pre-trained on GSM8K, so the actual improvement may be different on an unseen reasoning dataset. 
+  Also note that Llama 3.1 8B Instruct might have been pre-trained on GSM8K, so the actual improvement may be different on an unseen reasoning dataset. 
 
 ### Example Usage
 
@@ -45,6 +45,12 @@ The answer tags can be modified using the `answer_start_pattern` and `answer_end
 
 
 **Note:**  
+To do : The script currently prints <|eot_id|><|finetune_right_pad_id|>.. in the response. Please ignore or filter these out as work around. 
+Dependency - datasets module.
+```
+pip install datasets
+```
+
 This prototype has only been tested on a single A100 GPU and has not been optimized for runtime or memory usage. Multi-GPU parallelism and tensor parallelism have not been validated. Only tested on Llama 3.1 8b model which does not support vision. The provided script demonstrates how to use the model for GSM8K evaluation. This prototype is intended solely for research purposes and benchmarking. 
 
 

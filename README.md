@@ -28,17 +28,20 @@ The new CoT feature allows the model to internally generate multiple reasoning p
 
 ### Example Usage
 
-To enable CoT reasoning, simply pass the `--cot_decoding true` flag along with your desired `--cot_top_k` value when running the model. The default setting assumes that the answer appears on a new line enclosed within answer tags. For example:
+To enable CoT reasoning, simply pass the `--cot_decoding true` flag along with your desired `--cot_top_k` value when running the model. 
+
+Run script 
+```bash
+python models/scripts/example_cot_decode.py $CHECKPOINT_DIR --cot_decoding true --cot_top_k 10
+```
+
+The default setting assumes that the answer appears on a new line enclosed within answer tags. For example:
 
 ```
 Mary worked for 4 hours. She was paid $10 per hour. So the total payment is $40
 <answer>40</answer>
 ```
 The answer tags can be modified using the `answer_start_pattern` and `answer_end_pattern` options in the `generate()` function.
-
-Run script 
-```bash
-python models/scripts/example_cot_decode.py $CHECKPOINT_DIR --cot_decoding true --cot_top_k 10
 
 
 **Note:**  
